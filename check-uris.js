@@ -35,10 +35,10 @@ function checkURIs(uri1, uri2) {
   if(!areEqualShallow(uri1Obj.queryObj, uri2Obj.queryObj)) {
     return false;
   }
-  // Fragment
-  // if(uri1Obj.auth !== uri2Obj.auth) {
-  //   return false;
-  // }
+  // Hash
+  if(uri1Obj.hash !== uri2Obj.hash) {
+    return false;
+  }
   return true;
 }
 
@@ -59,6 +59,10 @@ function areEqualShallow(a, b) {
 function parseUri(uri) {
   var uriObj = {};
   var tmp = null;
+
+  // decode hex char in uri
+  uri = decodeURI(uri);
+
   // Hash.
   if (tmp = uri.match(/(.*?)#(.*)/)) {
       uriObj.hash = tmp[2];
